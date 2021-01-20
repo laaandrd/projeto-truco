@@ -1,41 +1,42 @@
 package application;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import entities.Card;
 import entities.Deck;
+import entities.TrucoCard;
+import enums.Suit;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Deck baralho = new Deck();
-		List <Card> c1 = new ArrayList<>();
+		TrucoCard c1 = new TrucoCard("3", Suit.HEARTS, 10);
+		c1.makeManilha();
 		
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
+		TrucoCard c2 = new TrucoCard("3", Suit.CLUBS, 10);
+		c2.makeManilha();
 		
-		System.out.println(c1);
+		TrucoCard c3 = new TrucoCard("2", Suit.HEARTS, 9);
 		
-		baralho.setDefaultDeck();
-		baralho.shuffle();
-		c1.clear();
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
+		TrucoCard c4 = new TrucoCard("2", Suit.DIAMONDS, 9);
 		
-		System.out.println(c1);
-
-		baralho.setDefaultDeck();
-		baralho.shuffle();
-		c1.clear();
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
-		c1.add(baralho.takeCard());
+		TrucoCard c5 = new TrucoCard("3", Suit.DIAMONDS, 10);
+		c5.makeManilha();
 		
-		System.out.println(c1);
+		List<TrucoCard> cartas = Arrays.asList(c1, c2, c3, c4, c5);
+		
+		for(TrucoCard c: cartas) {
+			if(c.isManilha()) {
+				System.out.println(c + " (Manilha) | Relative value: " + c.getRelativeValue());
+			}
+			else {
+				System.out.println(c + " (Not a manilha) | Relative value: " + c.getRelativeValue());
+			}
+		}
+		
+		
 	}
 
 }

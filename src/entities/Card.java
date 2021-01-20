@@ -6,7 +6,7 @@ public class Card{
 
 	private String tag;
 	private Suit suit;
-	private int relativeValue;
+	protected int relativeValue;
 
 	public Card(String tag, Suit suit, int relativeValue) {
 		this.tag = tag;
