@@ -4,6 +4,15 @@ import enums.Suit;
 
 public class TrucoDeck extends Deck{
 	
+
+	public void getPlayerCards(TrucoPlayer player) {
+		for(int i = 0; i<3; i++) {
+			Card c = takeCard();
+			TrucoCard tc = new TrucoCard(c.getTag(), c.getSuit(), c.relativeValue);
+			player.addCard(tc);
+		}
+	}
+	
 	@Override
 	public void setDefaultDeck() {
 		

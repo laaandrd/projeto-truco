@@ -6,7 +6,7 @@ public class TrucoCard extends Card {
 
 	private boolean isVira;
 	private boolean isManilha;
-
+	
 	public TrucoCard(String tag, Suit suit, int relativeValue) {
 		super(tag, suit, relativeValue);
 	}

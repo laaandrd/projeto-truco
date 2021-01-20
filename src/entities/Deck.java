@@ -13,11 +13,19 @@ public class Deck {
 	public Deck() {
 		this.setDefaultDeck();
 	}
-	
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
 	public Card takeCard() {
 		Card card = cards.get(0);
 		cards.remove(0);
 		return card;
+	}
+	
+	public int deckSize() {
+		return cards.size();
 	}
 	
 	public void shuffle() {
