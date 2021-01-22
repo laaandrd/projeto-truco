@@ -23,12 +23,6 @@ public class Card{
 		this.cardTag = cardTag;
 	}
 
-
-
-	public String getTag() {
-		return cardTag.getTag();
-	}
-
 	public Suit getSuit() {
 		return suit;
 	}
@@ -73,7 +67,7 @@ public class Card{
 	@Override
 	public String toString() {
 		return "[" +
-				getTag() +
+				getCardTag().getTag() +
 				" " +
 				suit+
 				"]";

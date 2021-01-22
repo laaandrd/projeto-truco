@@ -13,7 +13,7 @@ public enum Suit {
 		this.suitTag = suitTag;
 	}
 	
-	public String getSuitTag() {
+	public String getTag() {
 		return suitTag;
 	}
 }

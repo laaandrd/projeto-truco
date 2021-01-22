@@ -5,6 +5,12 @@ import enums.Suit;
 
 public class TrucoDeck extends Deck{
 	
+	@Override
+	public TrucoCard takeCard() {
+		Card card = cards.get(0);
+		cards.remove(0);
+		return (TrucoCard) card;
+	}
 
 	public void getPlayerCards(TrucoPlayer player) {
 		for(int i = 0; i<3; i++) {

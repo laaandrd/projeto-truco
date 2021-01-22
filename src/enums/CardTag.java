@@ -22,6 +22,7 @@ public enum CardTag {
 		this.tag = tag;
 	}
 	
+	//do not Override the toString() method!!
 	public String getTag() {
 		return tag;
 	}

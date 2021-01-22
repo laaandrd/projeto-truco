@@ -2,15 +2,19 @@ package entities;
 
 import enums.CardTag;
 import enums.Suit;
+import enums.TrucoDeckIncreasingSequence;
 
 public class TrucoCard extends Card {
+
+	public TrucoCard(CardTag cardTag, Suit suit, int relativeValue) {
+		super(cardTag, suit, relativeValue);
+	}
 
 	private boolean isVira;
 	private boolean isManilha;
 	
-	public TrucoCard(CardTag cardTag, Suit suit, int relativeValue) {
-		super(cardTag, suit, relativeValue);
-	}
+	//may be replaced to a future "TrucoMatch class"
+	private TrucoDeckIncreasingSequence [] trucoCardsTags = TrucoDeckIncreasingSequence.trucoCardsTags;
 
 	@Override
 	public int getRelativeValue() {
@@ -58,4 +62,15 @@ public class TrucoCard extends Card {
 
 		return value;
 	}
+	
+	//may be replaced to a future "TrucoMatch class"
+	public int getDefaultTrucoValue() {
+		for(TrucoDeckIncreasingSequence trucoCardTag : trucoCardsTags) {
+			if(trucoCardTag.toString().equals(this.getCardTag().toString())){
+				return 10 * trucoCardTag.getDeafaultSequence();
+			}
+		}
+		return -1;
+	}
+	
 }
