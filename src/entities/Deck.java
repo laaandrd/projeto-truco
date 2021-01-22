@@ -9,7 +9,7 @@ import enums.Suit;
 
 public class Deck {
 	
-	List<Card> cards = new ArrayList<>();
+	protected List<Card> cards = new ArrayList<>();
 	
 	public Deck() {
 		this.setDefaultDeck();

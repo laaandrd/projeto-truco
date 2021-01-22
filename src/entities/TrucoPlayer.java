@@ -21,6 +21,10 @@ public class TrucoPlayer {
 	public TrucoTeam getTeam() {
 		return team;
 	}
+	
+	public void setTeam(TrucoTeam team) {
+		this.team = team;
+	}
 
 	public void joinTeam(TrucoTeam team) {
 		this.team = team;

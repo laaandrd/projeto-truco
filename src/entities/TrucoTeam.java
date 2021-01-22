@@ -26,6 +26,7 @@ public class TrucoTeam {
 		for(int i = 0; i < players.length; i++) {
 			if(players[i]==null) {
 				players[i]=player;
+				player.setTeam(this);
 				i = players.length;
 			}
 		}
