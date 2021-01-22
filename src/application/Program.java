@@ -1,14 +1,16 @@
 package application;
 
 import entities.TrucoCard;
-import enums.CardTag;
-import enums.Suit;
+import entities.TrucoDeck;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		TrucoCard tc1 = new TrucoCard(CardTag.KING, Suit.SPADES, 7);
+		TrucoDeck td = new TrucoDeck();
+		td.shuffle();
+		
+		TrucoCard tc1 = (TrucoCard) td.takeCard();
 		
 		System.out.println(tc1 + "\nDefault truco value: " + ((TrucoCard) tc1).getDefaultTrucoValue());
 		System.out.println("CardTag: " + tc1.getCardTag());
