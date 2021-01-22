@@ -1,11 +1,13 @@
 package application;
 
-import entities.Round;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Mao;
 import entities.TrucoCard;
 import entities.TrucoDeck;
 import entities.TrucoPlayer;
-import enums.CardTag;
-import enums.Suit;
+import entities.TrucoTeam;
 
 public class Program {
 
@@ -14,40 +16,44 @@ public class Program {
 		TrucoDeck td = new TrucoDeck();
 		td.shuffle();
 		
-		TrucoCard vira = new TrucoCard(CardTag.THREE, Suit.CLUBS);
+		TrucoTeam team1 = new TrucoTeam(2426);
+		team1.addPlayer(new TrucoPlayer("Player 435"));
+		team1.addPlayer(new TrucoPlayer("Player 975"));
 		
-		TrucoPlayer tp = new TrucoPlayer("Matheus");
-		tp.addCard(new TrucoCard(CardTag.THREE, Suit.HEARTS));
-		tp.addCard(new TrucoCard(CardTag.FOUR, Suit.CLUBS));
-		tp.addCard(new TrucoCard(CardTag.FOUR, Suit.DIAMONDS));
+		TrucoTeam team2 = new TrucoTeam(2426);
+		team2.addPlayer(new TrucoPlayer("Player 141"));
+		team2.addPlayer(new TrucoPlayer("Player 632"));
 		
-		Round round = new Round(vira);
+		List<TrucoTeam> teams = new ArrayList<>();
+		teams.add(team1);
+		teams.add(team2);
 		
-		round.findManilhas(tp);
-		
-		System.out.println("Vira: " + vira);
-		
-		for(TrucoCard c : tp.getCards()) {
-			System.out.println(c + ", is manilha: " + c.isManilha() +", relative value: " + c.getRelativeValue());
+		for(TrucoTeam team : teams) {
+			for(TrucoPlayer player : team.getPlayers()) {
+				td.getPlayerCards(player);
+			}
 		}
 		
-		System.out.println();
+		Mao mao = new Mao((TrucoCard)td.takeCard());
 		
-		TrucoCard vira2 = new TrucoCard(CardTag.SIX, Suit.CLUBS);
-		Round round2 = new Round(vira2);
+		mao.getCurrentRound().setTeams(teams);
 		
-		TrucoPlayer tp2 = new TrucoPlayer("Mateus");
-		tp2.addCard(new TrucoCard(CardTag.FIVE, Suit.HEARTS));
-		tp2.addCard(new TrucoCard(CardTag.SEVEN, Suit.CLUBS));
-		tp2.addCard(new TrucoCard(CardTag.SIX, Suit.DIAMONDS));
+		System.out.println("Initial mão value: " + mao.getMaoValue());
+		(team1.getPlayers()[0]).increaseMaoValue(mao);
+		System.out.println("Team 1 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team1.getPlayers()[1]).increaseMaoValue(mao);
+		System.out.println("Team 1 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team2.getPlayers()[0]).increaseMaoValue(mao);
+		System.out.println("Team 2 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team2.getPlayers()[1]).increaseMaoValue(mao);
+		System.out.println("Team 2 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team1.getPlayers()[0]).increaseMaoValue(mao);
+		System.out.println("Team 1 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team2.getPlayers()[0]).increaseMaoValue(mao);
+		System.out.println("Team 2 player tried to increase mão value. New value: " + mao.getMaoValue());
+		(team1.getPlayers()[1]).increaseMaoValue(mao);
+		System.out.println("Team 1 player tried to increase mão value. New value: " + mao.getMaoValue());
 		
-		round2.findManilhas(tp2);
-
-		System.out.println("Vira: " + vira2);
-
-		for (TrucoCard c : tp2.getCards()) {
-			System.out.println(c + ", is manilha: " + c.isManilha() + ", relative value: " + c.getRelativeValue());
-		}
 		
 	}
 

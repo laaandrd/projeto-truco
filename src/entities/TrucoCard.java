@@ -71,7 +71,7 @@ public class TrucoCard extends Card {
 	public int getDefaultTrucoValue() {
 		for(TrucoDeckIncreasingSequence trucoCardTag : trucoCardsTags) {
 			if(trucoCardTag.toString().equals(this.getCardTag().toString())){
-				return trucoCardTag.getDeafaultSequence();
+				return trucoCardTag.getDeafaultTrucoValue();
 			}
 		}
 		return -1;

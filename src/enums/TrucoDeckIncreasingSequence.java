@@ -13,14 +13,14 @@ public enum TrucoDeckIncreasingSequence {
 	TWO(9),
 	THREE(10);
 	
-	private int defaultSequence;
+	private int defaultTrucoValue;
 	
-	TrucoDeckIncreasingSequence (int defaultSequence){
-		this.defaultSequence = defaultSequence;
+	TrucoDeckIncreasingSequence (int defaultTrucoValue){
+		this.defaultTrucoValue = defaultTrucoValue;
 	}
 	
-	public int getDeafaultSequence() {
-		return defaultSequence;
+	public int getDeafaultTrucoValue() {
+		return defaultTrucoValue;
 	}
 	
 	public static TrucoDeckIncreasingSequence[] trucoCardsTags = new TrucoDeckIncreasingSequence[]{

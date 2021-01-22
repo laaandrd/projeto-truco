@@ -4,8 +4,8 @@ public class TrucoPlayer {
 
 	private String name;
 	private TrucoTeam team;
-	private TrucoCard [] cards = new TrucoCard [3];
-	
+	private TrucoCard[] cards = new TrucoCard[3];
+
 	public TrucoPlayer(String name) {
 		this.name = name;
 	}
@@ -21,7 +21,7 @@ public class TrucoPlayer {
 	public TrucoTeam getTeam() {
 		return team;
 	}
-	
+
 	public void setTeam(TrucoTeam team) {
 		this.team = team;
 	}
@@ -36,19 +36,21 @@ public class TrucoPlayer {
 	}
 
 	public void addCard(TrucoCard card) {
-		for(int i = 0; i < cards.length; i++) {
-			if(cards[i]==null) {
-				cards[i]=card;
+		for (int i = 0; i < cards.length; i++) {
+			if (cards[i] == null) {
+				cards[i] = card;
 				i = cards.length;
 			}
 		}
 	}
-	
+
+	// !
+	public void increaseMaoValue(Mao mao) {
+		mao.increaseMaoValue(this);
+	}
+
 	public String toString() {
 		return this.name;
 	}
-	
-	
-	
-	
+
 }
