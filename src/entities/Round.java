@@ -35,6 +35,24 @@ public class Round {
 	public void setTeams(List<TrucoTeam> teams) {
 		this.teams = teams;
 	}
+	
+	public void findManilhas(TrucoPlayer player) {
+		int i = vira.getDefaultTrucoValue();
+		if(i == 10) {
+			for(TrucoCard c : player.getCards()) {
+				if(c.getDefaultTrucoValue() == 1) {
+					c.makeManilha();
+				}
+			}
+		}
+		else {
+			for(TrucoCard c : player.getCards()) {
+				if(c.getDefaultTrucoValue() == i+1) {
+					c.makeManilha();
+				}
+			}
+		}
+	}
 
 	public TrucoPlayer getRoundWinner() {
 		return roundWinner;
@@ -44,8 +62,6 @@ public class Round {
 		this.roundWinner = roundWinner;
 	}
 
-
-	
 	public void organizeSequence(TrucoPlayer lastRoundWinner) {
 		if(lastRoundWinner == null) {
 			int i = 0;

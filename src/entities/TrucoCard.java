@@ -5,6 +5,11 @@ import enums.Suit;
 import enums.TrucoDeckIncreasingSequence;
 
 public class TrucoCard extends Card {
+	
+	public TrucoCard(CardTag cardTag, Suit suit) {
+		super(cardTag, suit);
+		this.relativeValue = this.getDefaultTrucoValue();
+	}
 
 	public TrucoCard(CardTag cardTag, Suit suit, int relativeValue) {
 		super(cardTag, suit, relativeValue);
@@ -12,14 +17,13 @@ public class TrucoCard extends Card {
 
 	private boolean isVira;
 	private boolean isManilha;
-	
-	//may be replaced to a future "TrucoMatch class"
+	//!
 	private TrucoDeckIncreasingSequence [] trucoCardsTags = TrucoDeckIncreasingSequence.trucoCardsTags;
 
 	@Override
 	public int getRelativeValue() {
 		if (isManilha) {
-			return relativeValue * 10 + this.getSuitValue();
+			return 11 * 10 + this.getSuitValue();
 		}
 
 		return this.relativeValue*10;
@@ -63,11 +67,11 @@ public class TrucoCard extends Card {
 		return value;
 	}
 	
-	//may be replaced to a future "TrucoMatch class"
+	//!
 	public int getDefaultTrucoValue() {
 		for(TrucoDeckIncreasingSequence trucoCardTag : trucoCardsTags) {
 			if(trucoCardTag.toString().equals(this.getCardTag().toString())){
-				return 10 * trucoCardTag.getDeafaultSequence();
+				return trucoCardTag.getDeafaultSequence();
 			}
 		}
 		return -1;

@@ -8,6 +8,11 @@ public class Card{
 	private CardTag cardTag;
 	private Suit suit;
 	protected int relativeValue;
+	
+	public Card(CardTag cardTag, Suit suit) {
+		this.cardTag = cardTag;
+		this.suit = suit;
+	}
 
 	public Card(CardTag cardTag, Suit suit, int relativeValue) {
 		this.cardTag = cardTag;

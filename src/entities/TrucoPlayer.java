@@ -45,9 +45,7 @@ public class TrucoPlayer {
 	}
 	
 	public String toString() {
-		return this.name+
-				", Team #"+
-				this.getTeam().getId();
+		return this.name;
 	}
 	
 	
