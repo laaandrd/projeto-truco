@@ -1,25 +1,32 @@
 package entities;
 
+import enums.CardTag;
 import enums.Suit;
 
 public class Card{
 
-	private String tag;
+	private CardTag cardTag;
 	private Suit suit;
 	protected int relativeValue;
 
-	public Card(String tag, Suit suit, int relativeValue) {
-		this.tag = tag;
+	public Card(CardTag cardTag, Suit suit, int relativeValue) {
+		this.cardTag = cardTag;
 		this.suit = suit;
 		this.relativeValue = relativeValue;
 	}
 
-	public String getTag() {
-		return tag;
+	public CardTag getCardTag() {
+		return cardTag;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setCardTag(CardTag cardTag) {
+		this.cardTag = cardTag;
+	}
+
+
+
+	public String getTag() {
+		return cardTag.getTag();
 	}
 
 	public Suit getSuit() {
@@ -66,7 +73,7 @@ public class Card{
 	@Override
 	public String toString() {
 		return "[" +
-				tag +
+				getTag() +
 				" " +
 				suit+
 				"]";

@@ -2,9 +2,18 @@ package enums;
 
 public enum Suit {
 	
-	DIAMONDS,
-	SPADES,
-	HEARTS,
-	CLUBS;
+	DIAMONDS("♦"),
+	SPADES("♠"),
+	HEARTS("♥"),
+	CLUBS("♣");
 	
+	private String suitTag;
+	
+	Suit (String suitTag){
+		this.suitTag = suitTag;
+	}
+	
+	public String getSuitTag() {
+		return suitTag;
+	}
 }

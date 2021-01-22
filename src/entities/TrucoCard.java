@@ -1,5 +1,6 @@
 package entities;
 
+import enums.CardTag;
 import enums.Suit;
 
 public class TrucoCard extends Card {
@@ -7,8 +8,8 @@ public class TrucoCard extends Card {
 	private boolean isVira;
 	private boolean isManilha;
 	
-	public TrucoCard(String tag, Suit suit, int relativeValue) {
-		super(tag, suit, relativeValue);
+	public TrucoCard(CardTag cardTag, Suit suit, int relativeValue) {
+		super(cardTag, suit, relativeValue);
 	}
 
 	@Override

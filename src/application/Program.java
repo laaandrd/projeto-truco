@@ -1,9 +1,12 @@
 package application;
 
+import entities.Card;
 import entities.TrucoCard;
 import entities.TrucoDeck;
 import entities.TrucoPlayer;
 import entities.TrucoTeam;
+import enums.CardTag;
+import enums.Suit;
 
 public class Program {
 
@@ -41,7 +44,10 @@ public class Program {
 		
 		System.out.println(td.deckSize()+" cards remain on the deck.");
 		
+		System.out.println();
 		
+		System.out.println("CardTag: " + CardTag.FOUR);
+		System.out.println("Tag:" + CardTag.FOUR.getTag());
 		
 	}
 

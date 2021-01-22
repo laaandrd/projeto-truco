@@ -1,5 +1,6 @@
 package entities;
 
+import enums.CardTag;
 import enums.Suit;
 
 public class TrucoDeck extends Deck{
@@ -8,7 +9,7 @@ public class TrucoDeck extends Deck{
 	public void getPlayerCards(TrucoPlayer player) {
 		for(int i = 0; i<3; i++) {
 			Card c = takeCard();
-			TrucoCard tc = new TrucoCard(c.getTag(), c.getSuit(), c.relativeValue);
+			TrucoCard tc = new TrucoCard(c.getCardTag(), c.getSuit(), c.relativeValue);
 			player.addCard(tc);
 		}
 	}
@@ -18,49 +19,49 @@ public class TrucoDeck extends Deck{
 		
 		cards.clear();
 		
-		cards.add(new Card("4", Suit.DIAMONDS, 1));
-		cards.add(new Card("5", Suit.DIAMONDS, 2));
-		cards.add(new Card("6", Suit.DIAMONDS, 3));
-		cards.add(new Card("7", Suit.DIAMONDS, 4));
-		cards.add(new Card("Q", Suit.DIAMONDS, 5));
-		cards.add(new Card("J", Suit.DIAMONDS, 6));
-		cards.add(new Card("K", Suit.DIAMONDS, 7));
-		cards.add(new Card("A", Suit.DIAMONDS, 8));
-		cards.add(new Card("2", Suit.DIAMONDS, 9));
-		cards.add(new Card("3", Suit.DIAMONDS, 10));
+		cards.add(new Card(CardTag.FOUR, Suit.DIAMONDS, 1));
+		cards.add(new Card(CardTag.FIVE, Suit.DIAMONDS, 2));
+		cards.add(new Card(CardTag.SIX, Suit.DIAMONDS, 3));
+		cards.add(new Card(CardTag.SEVEN, Suit.DIAMONDS, 4));
+		cards.add(new Card(CardTag.QUEEN, Suit.DIAMONDS, 5));
+		cards.add(new Card(CardTag.JACK, Suit.DIAMONDS, 6));
+		cards.add(new Card(CardTag.KING, Suit.DIAMONDS, 7));
+		cards.add(new Card(CardTag.ACE, Suit.DIAMONDS, 8));
+		cards.add(new Card(CardTag.TWO, Suit.DIAMONDS, 9));
+		cards.add(new Card(CardTag.THREE, Suit.DIAMONDS, 10));
 		
-		cards.add(new Card("4", Suit.SPADES, 1));
-		cards.add(new Card("5", Suit.SPADES, 2));
-		cards.add(new Card("6", Suit.SPADES, 3));
-		cards.add(new Card("7", Suit.SPADES, 4));
-		cards.add(new Card("Q", Suit.SPADES, 5));
-		cards.add(new Card("J", Suit.SPADES, 6));
-		cards.add(new Card("K", Suit.SPADES, 7));
-		cards.add(new Card("A", Suit.SPADES, 8));
-		cards.add(new Card("2", Suit.SPADES, 9));
-		cards.add(new Card("3", Suit.SPADES, 10));
+		cards.add(new Card(CardTag.FOUR, Suit.SPADES, 1));
+		cards.add(new Card(CardTag.FIVE, Suit.SPADES, 2));
+		cards.add(new Card(CardTag.SIX, Suit.SPADES, 3));
+		cards.add(new Card(CardTag.SEVEN, Suit.SPADES, 4));
+		cards.add(new Card(CardTag.QUEEN, Suit.SPADES, 5));
+		cards.add(new Card(CardTag.JACK, Suit.SPADES, 6));
+		cards.add(new Card(CardTag.KING, Suit.SPADES, 7));
+		cards.add(new Card(CardTag.ACE, Suit.SPADES, 8));
+		cards.add(new Card(CardTag.TWO, Suit.SPADES, 9));
+		cards.add(new Card(CardTag.THREE, Suit.SPADES, 10));
 		
-		cards.add(new Card("4", Suit.HEARTS, 1));
-		cards.add(new Card("5", Suit.HEARTS, 2));
-		cards.add(new Card("6", Suit.HEARTS, 3));
-		cards.add(new Card("7", Suit.HEARTS, 4));
-		cards.add(new Card("Q", Suit.HEARTS, 5));
-		cards.add(new Card("J", Suit.HEARTS, 6));
-		cards.add(new Card("K", Suit.HEARTS, 7));
-		cards.add(new Card("A", Suit.HEARTS, 8));
-		cards.add(new Card("2", Suit.HEARTS, 9));
-		cards.add(new Card("3", Suit.HEARTS, 10));
+		cards.add(new Card(CardTag.FOUR, Suit.HEARTS, 1));
+		cards.add(new Card(CardTag.FIVE, Suit.HEARTS, 2));
+		cards.add(new Card(CardTag.SIX, Suit.HEARTS, 3));
+		cards.add(new Card(CardTag.SEVEN, Suit.HEARTS, 4));
+		cards.add(new Card(CardTag.QUEEN, Suit.HEARTS, 5));
+		cards.add(new Card(CardTag.JACK, Suit.HEARTS, 6));
+		cards.add(new Card(CardTag.KING, Suit.HEARTS, 7));
+		cards.add(new Card(CardTag.ACE, Suit.HEARTS, 8));
+		cards.add(new Card(CardTag.TWO, Suit.HEARTS, 9));
+		cards.add(new Card(CardTag.THREE, Suit.HEARTS, 10));
 		
-		cards.add(new Card("4", Suit.CLUBS, 1));
-		cards.add(new Card("5", Suit.CLUBS, 2));
-		cards.add(new Card("6", Suit.CLUBS, 3));
-		cards.add(new Card("7", Suit.CLUBS, 4));
-		cards.add(new Card("Q", Suit.CLUBS, 5));
-		cards.add(new Card("J", Suit.CLUBS, 6));
-		cards.add(new Card("K", Suit.CLUBS, 7));
-		cards.add(new Card("A", Suit.CLUBS, 8));
-		cards.add(new Card("2", Suit.CLUBS, 9));
-		cards.add(new Card("3", Suit.CLUBS, 10));
+		cards.add(new Card(CardTag.FOUR, Suit.CLUBS, 1));
+		cards.add(new Card(CardTag.FIVE, Suit.CLUBS, 2));
+		cards.add(new Card(CardTag.SIX, Suit.CLUBS, 3));
+		cards.add(new Card(CardTag.SEVEN, Suit.CLUBS, 4));
+		cards.add(new Card(CardTag.QUEEN, Suit.CLUBS, 5));
+		cards.add(new Card(CardTag.JACK, Suit.CLUBS, 6));
+		cards.add(new Card(CardTag.KING, Suit.CLUBS, 7));
+		cards.add(new Card(CardTag.ACE, Suit.CLUBS, 8));
+		cards.add(new Card(CardTag.TWO, Suit.CLUBS, 9));
+		cards.add(new Card(CardTag.THREE, Suit.CLUBS, 10));
 		
 	}
 	
