@@ -12,7 +12,7 @@ public class Mao {
 	private HashMap<TrucoTeam, Integer> maoScoreboard = new HashMap<>();
 
 	public Mao(TrucoCard vira) {
-		rounds.add(new Round(vira));
+		setNewRound(vira);
 		this.maoValue = 1;
 	}
 
@@ -27,6 +27,7 @@ public class Mao {
 	public void setNewRound(TrucoCard vira) {
 		if (rounds.size() <= 3) {
 			rounds.add(new Round(vira));
+			getCurrentRound().setMao(this);
 		}
 	}
 

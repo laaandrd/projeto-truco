@@ -43,6 +43,8 @@ public class TrucoCard extends Card {
 
 	public void makeManilha() {
 		this.isManilha = true;
+		//forçar a atualizar o valor de 'relativeValue' como manilha para ser utilizado na comparação por hashCode
+		this.relativeValue = this.getRelativeValue();
 	}
 
 	public int getSuitValue() {
@@ -74,7 +76,10 @@ public class TrucoCard extends Card {
 				return trucoCardTag.getDeafaultTrucoValue();
 			}
 		}
+		//exception?
 		return -1;
 	}
+	
+	
 	
 }

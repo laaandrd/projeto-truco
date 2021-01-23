@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class Round {
 
+	private Mao mao;
 	private TrucoCard vira;
 	private HashMap<Integer, TrucoPlayer> sequence = new HashMap<>();
 	private List<TrucoTeam> teams = new ArrayList<>();
@@ -14,6 +15,14 @@ public class Round {
 	//pensar em sobrecarga(s) para agilizar a adição de times e a organização da sequência
 	public Round(TrucoCard vira) {
 		this.vira = vira;
+	}
+
+	public Mao getMao() {
+		return mao;
+	}
+
+	public void setMao(Mao mao) {
+		this.mao = mao;
 	}
 
 	public TrucoCard getVira() {
