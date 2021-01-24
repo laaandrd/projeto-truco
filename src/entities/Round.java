@@ -8,7 +8,7 @@ public class Round {
 
 	private Mao mao;
 	private TrucoCard vira;
-	private HashMap<Integer, TrucoPlayer> sequence = new HashMap<>();
+	private HashMap<Integer, TrucoPlayer> roundSequence = new HashMap<>();
 	private List<TrucoTeam> teams = new ArrayList<>();
 	private TrucoPlayer roundWinner;
 
@@ -33,8 +33,8 @@ public class Round {
 		this.vira = vira;
 	}
 
-	public HashMap<Integer, TrucoPlayer> getSequence() {
-		return sequence;
+	public HashMap<Integer, TrucoPlayer> getRoundSequence() {
+		return roundSequence;
 	}
 
 	public List<TrucoTeam> getTeams() {
@@ -69,23 +69,47 @@ public class Round {
 	public void setRoundWinner(TrucoPlayer roundWinner) {
 		this.roundWinner = roundWinner;
 	}
+	
+	public TrucoMatch getTrucoMatch() {
+		return this.getMao().getTrucoMatch();
+	}
+	
+	/*
+	 * a sequência da classe TrucoMatch é HashMap<TrucoPlayer, Integer>
+	 * a sequência da classe Round é HashMap<Integer, TrucoPlayer>
+	 */
+	public HashMap<Integer, TrucoPlayer> translateDefaultSequence(){
+		HashMap<Integer, TrucoPlayer> translatedDefaultSequence = new HashMap<>();
+		for(TrucoPlayer player : this.getTrucoMatch().getDefaultSequence().keySet()) {
+			Integer playerIndex = this.getTrucoMatch().getDefaultSequence().get(player);
+			translatedDefaultSequence.put(playerIndex, player);
+		}
+		
+		return translatedDefaultSequence;
+	}
 
-	public void organizeSequence(TrucoPlayer lastRoundWinner) {
-		if (lastRoundWinner == null) {
-			int i = 0;
-			int j = 0;
-			while (i < teams.get(0).getPlayers().length) {
-				for (TrucoTeam team : teams) {
-					sequence.put(j, team.getPlayers()[i]);
-					j++;
+	public void organizeRoundSequence() {
+		roundSequence.clear();
+		if (getTrucoMatch().getLastRound().getRoundWinner() == null) {
+			roundSequence = translateDefaultSequence();
+		}
+		else {
+			TrucoPlayer lastRoundWinner = getTrucoMatch().getLastRound().getRoundWinner();
+			Integer basePlayerIndex = getTrucoMatch().getDefaultSequence().get(lastRoundWinner);
+			for (TrucoPlayer player : getTrucoMatch().getDefaultSequence().keySet()) {
+				Integer newPosition = getTrucoMatch().getDefaultSequence().get(player) - basePlayerIndex;
+				if (newPosition >= 0) {
+					roundSequence.put(newPosition, player);
+				} else {
+					newPosition += getTrucoMatch().getDefaultSequence().size();
+					roundSequence.put(newPosition, player);
 				}
-				i++;
 			}
 		}
 	}
 
 	public void printPlayersSequence() {
-		System.out.println(sequence);
+		System.out.println(roundSequence);
 	}
 
 	public void startRound() {

@@ -6,14 +6,24 @@ import java.util.List;
 
 public class Mao {
 
+	private TrucoMatch trucoMatch;
 	private List<Round> rounds = new ArrayList<>();
 	private int maoValue;
 	private TrucoPlayer lastToIncreaseValue;
 	private HashMap<TrucoTeam, Integer> maoScoreboard = new HashMap<>();
 
+
 	public Mao(TrucoCard vira) {
 		setNewRound(vira);
 		this.maoValue = 1;
+	}
+	
+	public TrucoMatch getTrucoMatch() {
+		return trucoMatch;
+	}
+
+	public void setTrucoMatch(TrucoMatch trucoMatch) {
+		this.trucoMatch = trucoMatch;
 	}
 
 	public List<Round> getRounds() {
@@ -22,6 +32,13 @@ public class Mao {
 
 	public Round getCurrentRound() {
 		return rounds.get(rounds.size() - 1);
+	}
+	
+	public Round getLastRound() {
+		if(rounds.size()>1) {
+			return rounds.get(rounds.size() - 2);
+		}
+		return getCurrentRound();
 	}
 
 	public void setNewRound(TrucoCard vira) {

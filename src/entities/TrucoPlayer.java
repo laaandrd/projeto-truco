@@ -48,6 +48,11 @@ public class TrucoPlayer {
 	public void increaseMaoValue(Mao mao) {
 		mao.increaseMaoValue(this);
 	}
+	
+	//!
+	public TrucoCard playCard(TrucoCard card) {
+		return card;
+	}
 
 	public String toString() {
 		return this.name;
