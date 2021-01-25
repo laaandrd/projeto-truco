@@ -8,9 +8,11 @@ public class Round {
 
 	private Mao mao;
 	private TrucoCard vira;
-	private HashMap<Integer, TrucoPlayer> roundSequence = new HashMap<>();
 	private List<TrucoTeam> teams = new ArrayList<>();
-	private TrucoPlayer roundWinner;
+	private HashMap<Integer, TrucoPlayer> roundSequence = new HashMap<>();
+	private List<TrucoCard> playersCardsOnTable = new ArrayList<>();
+	private TrucoPlayer roundWinner;	
+	private boolean tiedRound;
 
 	//pensar em sobrecarga(s) para agilizar a adição de times e a organização da sequência
 	public Round(TrucoCard vira) {
@@ -33,10 +35,6 @@ public class Round {
 		this.vira = vira;
 	}
 
-	public HashMap<Integer, TrucoPlayer> getRoundSequence() {
-		return roundSequence;
-	}
-
 	public List<TrucoTeam> getTeams() {
 		return teams;
 	}
@@ -45,21 +43,12 @@ public class Round {
 		this.teams = teams;
 	}
 
-	public void findManilhas(TrucoPlayer player) {
-		int i = vira.getDefaultTrucoValue();
-		if (i == 10) {
-			for (TrucoCard c : player.getCards()) {
-				if (c.getDefaultTrucoValue() == 1) {
-					c.makeManilha();
-				}
-			}
-		} else {
-			for (TrucoCard c : player.getCards()) {
-				if (c.getDefaultTrucoValue() == i + 1) {
-					c.makeManilha();
-				}
-			}
-		}
+	public HashMap<Integer, TrucoPlayer> getRoundSequence() {
+		return roundSequence;
+	}
+	
+	public List<TrucoCard> getPlayersCardsOnTable() {
+		return playersCardsOnTable;
 	}
 
 	public TrucoPlayer getRoundWinner() {
@@ -70,8 +59,45 @@ public class Round {
 		this.roundWinner = roundWinner;
 	}
 	
+	public boolean isTiedRound() {
+		return tiedRound;
+	}
+
+	public void setTiedRound(boolean tiedRound) {
+		this.tiedRound = tiedRound;
+	}
+	
 	public TrucoMatch getTrucoMatch() {
 		return this.getMao().getTrucoMatch();
+	}
+	
+	public void findManilhas(List <TrucoCard> cards) {
+		int i = vira.getDefaultTrucoValue();
+		if (i == 10) {
+			for (TrucoCard c : cards) {
+				if (c.getDefaultTrucoValue() == 1) {
+					c.makeManilha();
+				}
+			}
+		} else {
+			for (TrucoCard c : cards) {
+				if (c.getDefaultTrucoValue() == i + 1) {
+					c.makeManilha();
+				}
+			}
+		}
+	}
+	
+	public void clearManilhas(List <TrucoCard> cards) {
+		for(TrucoCard card : cards) {
+			card.unmakeManilha();
+		}
+	}
+	
+	public void addPlayerCardOnTable(TrucoPlayer player, int cardIndex) {
+		if(player.getCards()[cardIndex] != null){
+			playersCardsOnTable.add(player.playCard(cardIndex));
+		}
 	}
 	
 	/*
@@ -107,13 +133,39 @@ public class Round {
 			}
 		}
 	}
+	
+	public List<TrucoPlayer> getOrdenedPlayers(){
+		List<TrucoPlayer> ordenedPlayers = new ArrayList<>();
+		
+		for(Integer playerIndex : roundSequence.keySet()) {
+			ordenedPlayers.add(playerIndex, roundSequence.get(playerIndex));
+		}
+		
+		return ordenedPlayers;
+	}
 
 	public void printPlayersSequence() {
 		System.out.println(roundSequence);
 	}
-
-	public void startRound() {
-
+	
+	public void findRoundWinner() {
+		int aux = 0;
+		int index = -1;
+		findManilhas(playersCardsOnTable);
+		for(int i = 0; i<playersCardsOnTable.size();i++) {
+			int cardValue = playersCardsOnTable.get(i).getRelativeValue();
+			if(cardValue > aux) {
+				aux = cardValue;
+				index = i;
+				tiedRound = false;
+			}
+			else if(cardValue == aux) {
+				tiedRound = true;
+			}
+		}
+		clearManilhas(playersCardsOnTable);
+		roundWinner = getOrdenedPlayers().get(index);
+		setRoundWinner(roundWinner);
 	}
 
 }

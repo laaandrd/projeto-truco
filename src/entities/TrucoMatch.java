@@ -11,13 +11,13 @@ public class TrucoMatch {
 	private List<Mao> maos = new ArrayList<>();
 	private HashMap<TrucoPlayer, Integer> defaultSequence = new HashMap<>();
 	private HashMap<TrucoTeam, Integer> scoreboard = new HashMap<>();
-	//booleano para verificar se há o necessário para iniciar uma partida de truco
+	// booleano para verificar se há o necessário para iniciar uma partida de truco
 	private boolean trucoMatchRequirements;
-	
+
 	public TrucoMatch(List<TrucoTeam> teams) {
 		this.trucoDeck = new TrucoDeck();
 		this.teams = teams;
-		for(TrucoTeam team : teams) {
+		for (TrucoTeam team : teams) {
 			scoreboard.put(team, 0);
 		}
 		organizeSequence();
@@ -28,39 +28,24 @@ public class TrucoMatch {
 		return trucoDeck;
 	}
 	
+	public void setTrucoDeck(TrucoDeck trucoDeck) {
+		this.trucoDeck = trucoDeck;
+	}
+
 	public List<TrucoTeam> getTeams() {
 		return teams;
+	}
+
+	public void setTeams(List<TrucoTeam> teams) {
+		this.teams = teams;
 	}
 
 	public List<Mao> getMaos() {
 		return maos;
 	}
-	
-	public Mao getCurrentMao() {
-		return maos.get(maos.size()-1);
-	}
-	
-	public Mao getLastMao() {
-		return maos.get(maos.size()-2);
-	}
-	
-	public void setNewMao() {
-		trucoDeck.shuffle();
-		TrucoCard vira = (TrucoCard) trucoDeck.takeCard();
-		maos.add(new Mao(vira));
-		getCurrentMao().setTrucoMatch(this);
-	}
-
-	public void setTrucoDeck(TrucoDeck trucoDeck) {
-		this.trucoDeck = trucoDeck;
-	}
 
 	public HashMap<TrucoPlayer, Integer> getDefaultSequence() {
 		return defaultSequence;
-	}
-
-	public void setDefaultSequence(HashMap<TrucoPlayer, Integer> defaultSequence) {
-		this.defaultSequence = defaultSequence;
 	}
 
 	public HashMap<TrucoTeam, Integer> getScoreboard() {
@@ -74,30 +59,47 @@ public class TrucoMatch {
 	public void setTrucoMatchRequirements(boolean trucoMatchRequirements) {
 		this.trucoMatchRequirements = trucoMatchRequirements;
 	}
-	
+
+	public Mao getCurrentMao() {
+		return maos.get(maos.size() - 1);
+	}
+
+	public Mao getLastMao() {
+		return maos.get(maos.size() - 2);
+	}
+
+	public void setNewMao() {
+		trucoDeck.setDefaultDeck();
+		trucoDeck.shuffle();
+		maos.add(new Mao());
+		getCurrentMao().setTrucoMatch(this);
+		getCurrentMao().getPlayersCards();
+		getCurrentMao().setNewRound();
+	}
+
 	public Round getCurrenteRound() {
 		return getCurrentMao().getCurrentRound();
 	}
-	
+
 	public Round getLastRound() {
-		
-		if(getCurrentMao().getRounds().size()==1 && maos.size()>1) {
+
+		if (getCurrentMao().getRounds().size() == 1 && maos.size() > 1) {
 			return getLastMao().getRounds().get(2);
 		}
 		return getCurrentMao().getLastRound();
 	}
-	
-	//private method!
+
+	// private method!
 	private void organizeSequence() {
 		int i = 0;
 		int j = 0;
-		while (i < teams.get(0).getPlayers().length) {
+		while (i < teams.get(0).getPlayers().size()) {
 			for (TrucoTeam team : teams) {
-				defaultSequence.put(team.getPlayers()[i], j);
+				defaultSequence.put(team.getPlayers().get(i), j);
 				j++;
 			}
 			i++;
 		}
 	}
-	
+
 }

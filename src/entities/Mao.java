@@ -12,12 +12,10 @@ public class Mao {
 	private TrucoPlayer lastToIncreaseValue;
 	private HashMap<TrucoTeam, Integer> maoScoreboard = new HashMap<>();
 
-
-	public Mao(TrucoCard vira) {
-		setNewRound(vira);
+	public Mao() {
 		this.maoValue = 1;
 	}
-	
+
 	public TrucoMatch getTrucoMatch() {
 		return trucoMatch;
 	}
@@ -29,29 +27,60 @@ public class Mao {
 	public List<Round> getRounds() {
 		return rounds;
 	}
+	
+	public int getMaoValue() {
+		return maoValue;
+	}
+	
+	public TrucoPlayer getLastToIncreaseValue() {
+		return lastToIncreaseValue;
+	}
+
+	public void setLastToIncreaseValue(TrucoPlayer lastToIncreaseValue) {
+		this.lastToIncreaseValue = lastToIncreaseValue;
+	}
+	
+	public HashMap<TrucoTeam, Integer> getMaoScoreboard() {
+		return maoScoreboard;
+	}
 
 	public Round getCurrentRound() {
 		return rounds.get(rounds.size() - 1);
 	}
-	
+
 	public Round getLastRound() {
-		if(rounds.size()>1) {
+		if (rounds.size() > 1) {
 			return rounds.get(rounds.size() - 2);
 		}
 		return getCurrentRound();
 	}
 
-	public void setNewRound(TrucoCard vira) {
-		if (rounds.size() <= 3) {
+	public void setNewRound() {
+
+		TrucoCard vira;
+
+		if (trucoMatch != null && rounds.size() < 3) {
+			vira = (TrucoCard) trucoMatch.getTrucoDeck().takeCard();
 			rounds.add(new Round(vira));
 			getCurrentRound().setMao(this);
+			getCurrentRound().organizeRoundSequence();
+		}
+		else if (rounds.size() < 3) {
+			TrucoDeck td = new TrucoDeck();
+			td.shuffle();
+			vira = (TrucoCard) td.takeCard();
+			rounds.add(new Round(vira));
+			getCurrentRound().setMao(this);
+
 		}
 	}
 
-	public int getMaoValue() {
-		return maoValue;
+	public void getPlayersCards() {
+		for (TrucoPlayer player : trucoMatch.getDefaultSequence().keySet()) {
+			trucoMatch.getTrucoDeck().getPlayerCards(player);
+		}
 	}
-
+	
 	public void increaseMaoValue(TrucoPlayer player) {
 
 		if (this.lastToIncreaseValue == null || this.getLastToIncreaseValue().getTeam() != player.getTeam()) {
@@ -80,18 +109,6 @@ public class Mao {
 		} else {
 			// exception?
 		}
-	}
-
-	public TrucoPlayer getLastToIncreaseValue() {
-		return lastToIncreaseValue;
-	}
-
-	public void setLastToIncreaseValue(TrucoPlayer lastToIncreaseValue) {
-		this.lastToIncreaseValue = lastToIncreaseValue;
-	}
-
-	public HashMap<TrucoTeam, Integer> getMaoScoreboard() {
-		return maoScoreboard;
 	}
 
 }

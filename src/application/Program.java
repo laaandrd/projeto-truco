@@ -13,18 +13,18 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		System.out.println("\n***************************************\n");
-
 		TrucoDeck td = new TrucoDeck();
 		td.shuffle();
 
-		TrucoTeam team1 = new TrucoTeam(2426);
-		team1.addPlayer(new TrucoPlayer("Player 435"));
-		team1.addPlayer(new TrucoPlayer("Player 975"));
+		TrucoTeam team1 = new TrucoTeam(2426, 3);
+		team1.addPlayer(new TrucoPlayer("Player 1435"));
+		team1.addPlayer(new TrucoPlayer("Player 1975"));
+		team1.addPlayer(new TrucoPlayer("Player 1225"));
 
-		TrucoTeam team2 = new TrucoTeam(9821);
-		team2.addPlayer(new TrucoPlayer("Player 141"));
-		team2.addPlayer(new TrucoPlayer("Player 632"));
+		TrucoTeam team2 = new TrucoTeam(9821, 3);
+		team2.addPlayer(new TrucoPlayer("Player 2141"));
+		team2.addPlayer(new TrucoPlayer("Player 2632"));
+		team2.addPlayer(new TrucoPlayer("Player 2882"));
 
 		List<TrucoTeam> teams = new ArrayList<>();
 		teams.add(team1);
@@ -39,30 +39,75 @@ public class Program {
 		TrucoMatch tm = new TrucoMatch(teams);
 		
 		System.out.println("Round " + tm.getCurrentMao().getRounds().size());
-
-		tm.getCurrenteRound().organizeRoundSequence();
 		tm.getCurrenteRound().printPlayersSequence();
-		
-		tm.getCurrenteRound().setRoundWinner(tm.getTeams().get(1).getPlayers()[0]);
-		System.out.println("Winner: " + tm.getCurrenteRound().getRoundWinner());
+		for(TrucoPlayer player: tm.getCurrenteRound().getOrdenedPlayers()) {
+			System.out.print(player + ", "+ player.getTeam() + ","+ " cards: " );
+			for(TrucoCard card : player.getCards()) {
+				if(card != null) {
+					System.out.print(card + " ");
+				}
+			}
+			tm.getCurrenteRound().addPlayerCardOnTable(player, 0);
+			System.out.println();
+		}
+		tm.getCurrenteRound().findRoundWinner();
+		System.out.println("\nVira: " + tm.getCurrenteRound().getVira());
+		System.out.println("Cards on table: " + tm.getCurrenteRound().getPlayersCardsOnTable());
+		if(!tm.getCurrenteRound().isTiedRound()) {
+			System.out.println("Winner: " + tm.getCurrenteRound().getRoundWinner());
+		}
+		else {
+			System.out.println("Tied round!");
+		}
+		System.out.println("Number of cards remaining on Deck: " + tm.getTrucoDeck().deckSize());
 
-		tm.getCurrentMao().setNewRound((TrucoCard) tm.getTrucoDeck().takeCard());
-		
+		tm.getCurrentMao().setNewRound();
 		System.out.println("\nRound " + tm.getCurrentMao().getRounds().size());
-
-		tm.getCurrenteRound().organizeRoundSequence();
 		tm.getCurrenteRound().printPlayersSequence();
+		for(TrucoPlayer player: tm.getCurrenteRound().getOrdenedPlayers()) {
+			System.out.print(player + ", "+ player.getTeam() + ","+ " cards: " );
+			for(TrucoCard card : player.getCards()) {
+				if(card != null) {
+					System.out.print(card + " ");
+				}
+			}
+			tm.getCurrenteRound().addPlayerCardOnTable(player, 1);
+			System.out.println();
+		}
+		tm.getCurrenteRound().findRoundWinner();
+		System.out.println("\nVira: " + tm.getCurrenteRound().getVira());
+		System.out.println("Cards on table: " + tm.getCurrenteRound().getPlayersCardsOnTable());
+		if(!tm.getCurrenteRound().isTiedRound()) {
+			System.out.println("Winner: " + tm.getCurrenteRound().getRoundWinner());
+		}
+		else {
+			System.out.println("Tied round!");
+		}
+		System.out.println("Number of cards remaining on Deck: " + tm.getTrucoDeck().deckSize());
 		
-		tm.getCurrenteRound().setRoundWinner(tm.getTeams().get(1).getPlayers()[1]);
-		System.out.println("Winner: " + tm.getCurrenteRound().getRoundWinner());
-
-		tm.getCurrentMao().setNewRound((TrucoCard) tm.getTrucoDeck().takeCard());
-		
+		tm.getCurrentMao().setNewRound();
 		System.out.println("\nRound " + tm.getCurrentMao().getRounds().size());
-
-		tm.getCurrenteRound().organizeRoundSequence();
 		tm.getCurrenteRound().printPlayersSequence();
-
+		for(TrucoPlayer player: tm.getCurrenteRound().getOrdenedPlayers()) {
+			System.out.print(player + ", "+ player.getTeam() + ","+ " cards: " );
+			for(TrucoCard card : player.getCards()) {
+				if(card != null) {
+					System.out.print(card + " ");
+				}
+			}
+			tm.getCurrenteRound().addPlayerCardOnTable(player, 2);
+			System.out.println();
+		}
+		tm.getCurrenteRound().findRoundWinner();
+		System.out.println("\nVira: " + tm.getCurrenteRound().getVira());
+		System.out.println("Cards on table: " + tm.getCurrenteRound().getPlayersCardsOnTable());
+		if(!tm.getCurrenteRound().isTiedRound()) {
+			System.out.println("Winner: " + tm.getCurrenteRound().getRoundWinner());
+		}
+		else {
+			System.out.println("Tied round!");
+		}
+		System.out.println("Number of cards remaining on Deck: " + tm.getTrucoDeck().deckSize());
 	}
 
 }

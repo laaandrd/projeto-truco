@@ -17,7 +17,6 @@ public class TrucoCard extends Card {
 
 	private boolean isVira;
 	private boolean isManilha;
-	//!
 	private TrucoDeckIncreasingSequence [] trucoCardsTags = TrucoDeckIncreasingSequence.trucoCardsTags;
 
 	@Override
@@ -43,7 +42,11 @@ public class TrucoCard extends Card {
 
 	public void makeManilha() {
 		this.isManilha = true;
-		//forçar a atualizar o valor de 'relativeValue' como manilha para ser utilizado na comparação por hashCode
+		this.relativeValue = this.getRelativeValue();
+	}
+	
+	public void unmakeManilha() {
+		this.isManilha = false;
 		this.relativeValue = this.getRelativeValue();
 	}
 
@@ -69,14 +72,12 @@ public class TrucoCard extends Card {
 		return value;
 	}
 	
-	//!
 	public int getDefaultTrucoValue() {
 		for(TrucoDeckIncreasingSequence trucoCardTag : trucoCardsTags) {
 			if(trucoCardTag.toString().equals(this.getCardTag().toString())){
 				return trucoCardTag.getDeafaultTrucoValue();
 			}
 		}
-		//exception?
 		return -1;
 	}
 	

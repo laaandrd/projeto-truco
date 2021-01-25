@@ -43,6 +43,16 @@ public class TrucoPlayer {
 			}
 		}
 	}
+	
+	public void removeCard(int cardIndex) {
+		cards [cardIndex] = null;
+	}
+	
+	public void cleanCards() {
+		cards [0] = null;
+		cards [1] = null;
+		cards [2] = null;
+	} 
 
 	// !
 	public void increaseMaoValue(Mao mao) {
@@ -50,7 +60,9 @@ public class TrucoPlayer {
 	}
 	
 	//!
-	public TrucoCard playCard(TrucoCard card) {
+	public TrucoCard playCard(int cardIndex) {
+		TrucoCard card = cards [cardIndex];
+		removeCard(cardIndex);
 		return card;
 	}
 

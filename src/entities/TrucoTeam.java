@@ -1,13 +1,24 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrucoTeam {
 	
 	private int id;
-	private TrucoPlayer [] players = new TrucoPlayer[2];
+	private Integer numberOfPlayers;
+	private List<TrucoPlayer> players = new ArrayList<>();
+	//private TrucoPlayer [] players = new TrucoPlayer[2];
 	private int points;
 	
 	public TrucoTeam(int id) {
 		this.id = id;
+		this.numberOfPlayers = 2;
+	}
+	
+	public TrucoTeam(int id, int numberOfPlayers) {
+		this.id = id;
+		this.numberOfPlayers = numberOfPlayers;
 	}
 
 	public int getId() {
@@ -18,17 +29,14 @@ public class TrucoTeam {
 		this.id = id;
 	}
 
-	public TrucoPlayer[] getPlayers() {
+	public List<TrucoPlayer> getPlayers() {
 		return players;
 	}
 
 	public void addPlayer(TrucoPlayer player) {
-		for(int i = 0; i < players.length; i++) {
-			if(players[i]==null) {
-				players[i]=player;
-				player.setTeam(this);
-				i = players.length;
-			}
+		if(players.size() < numberOfPlayers) {
+			player.setTeam(this);
+			players.add(player);
 		}
 	}
 
@@ -44,7 +52,10 @@ public class TrucoTeam {
 		this.points -= points;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Team #" + id;
+	}
 	
 	
 
