@@ -73,6 +73,9 @@ public class TrucoMatch {
 		trucoDeck.shuffle();
 		maos.add(new Mao());
 		getCurrentMao().setTrucoMatch(this);
+		for(TrucoTeam team : teams) {
+			getCurrentMao().getMaoScoreboard().put(team, 0);
+		}
 		getCurrentMao().getPlayersCards();
 		getCurrentMao().setNewRound();
 	}
@@ -87,6 +90,11 @@ public class TrucoMatch {
 			return getLastMao().getRounds().get(2);
 		}
 		return getCurrentMao().getLastRound();
+	}
+	
+	public void increaseScore(TrucoTeam team) {
+		Integer currentScore = scoreboard.get(team);
+		scoreboard.replace(team, currentScore + getCurrentMao().getMaoValue());
 	}
 
 	// private method!

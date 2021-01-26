@@ -16,15 +16,15 @@ public class Program {
 		TrucoDeck td = new TrucoDeck();
 		td.shuffle();
 
-		TrucoTeam team1 = new TrucoTeam(2426, 3);
-		team1.addPlayer(new TrucoPlayer("Player 1435"));
-		team1.addPlayer(new TrucoPlayer("Player 1975"));
-		team1.addPlayer(new TrucoPlayer("Player 1225"));
+		TrucoTeam team1 = new TrucoTeam(1, 3);
+		team1.addPlayer(new TrucoPlayer("Player 11"));
+		team1.addPlayer(new TrucoPlayer("Player 12"));
+		//team1.addPlayer(new TrucoPlayer("Player 1225"));
 
-		TrucoTeam team2 = new TrucoTeam(9821, 3);
-		team2.addPlayer(new TrucoPlayer("Player 2141"));
-		team2.addPlayer(new TrucoPlayer("Player 2632"));
-		team2.addPlayer(new TrucoPlayer("Player 2882"));
+		TrucoTeam team2 = new TrucoTeam(2, 3);
+		team2.addPlayer(new TrucoPlayer("Player 21"));
+		team2.addPlayer(new TrucoPlayer("Player 22"));
+		//team2.addPlayer(new TrucoPlayer("Player 2882"));
 
 		List<TrucoTeam> teams = new ArrayList<>();
 		teams.add(team1);
@@ -108,6 +108,12 @@ public class Program {
 			System.out.println("Tied round!");
 		}
 		System.out.println("Number of cards remaining on Deck: " + tm.getTrucoDeck().deckSize());
+		
+		System.out.println();
+		
+		System.out.println("Mão Scoreboard: " + tm.getCurrentMao().getMaoScoreboard());
+		tm.getCurrentMao().findMaoWinner();
+		System.out.println("Truco Match Scoreboard: " + tm.getScoreboard());
+		
 	}
-
 }

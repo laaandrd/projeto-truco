@@ -11,6 +11,7 @@ public class Mao {
 	private int maoValue;
 	private TrucoPlayer lastToIncreaseValue;
 	private HashMap<TrucoTeam, Integer> maoScoreboard = new HashMap<>();
+	private TrucoTeam maoWinner;
 
 	public Mao() {
 		this.maoValue = 1;
@@ -44,6 +45,17 @@ public class Mao {
 		return maoScoreboard;
 	}
 
+	public TrucoTeam getMaoWinner() {
+		return maoWinner;
+	}
+
+	public void setMaoWinner(TrucoTeam maoWinner) {
+		this.maoWinner = maoWinner;
+		if(trucoMatch != null) {
+			trucoMatch.increaseScore(maoWinner);
+		}
+	}
+
 	public Round getCurrentRound() {
 		return rounds.get(rounds.size() - 1);
 	}
@@ -56,9 +68,7 @@ public class Mao {
 	}
 
 	public void setNewRound() {
-
 		TrucoCard vira;
-
 		if (trucoMatch != null && rounds.size() < 3) {
 			vira = (TrucoCard) trucoMatch.getTrucoDeck().takeCard();
 			rounds.add(new Round(vira));
@@ -71,7 +81,6 @@ public class Mao {
 			vira = (TrucoCard) td.takeCard();
 			rounds.add(new Round(vira));
 			getCurrentRound().setMao(this);
-
 		}
 	}
 
@@ -108,6 +117,35 @@ public class Mao {
 			}
 		} else {
 			// exception?
+		}
+	}
+	
+	public void increaseScore(TrucoTeam team) {
+		Integer currentScore = maoScoreboard.get(team);
+		maoScoreboard.replace(team, currentScore + 1);
+	}
+	
+	public void findMaoWinner() {
+		int aux = 0;
+		int numberOfRoundsWon;
+		TrucoTeam winnerTeam = null;
+		boolean hasWinner = false;
+		if(rounds.size() > 1) {
+			for(TrucoTeam team : maoScoreboard.keySet()) {
+				numberOfRoundsWon = maoScoreboard.get(team);
+				if(numberOfRoundsWon > aux) {
+					aux = numberOfRoundsWon;
+					winnerTeam = team;
+					hasWinner = true;
+				}
+				else if (numberOfRoundsWon == aux) {
+					hasWinner = false;
+				}
+			}
+			if(hasWinner) {
+				maoWinner = winnerTeam;
+				setMaoWinner(winnerTeam);
+			}
 		}
 	}
 
