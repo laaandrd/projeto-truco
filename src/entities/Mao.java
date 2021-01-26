@@ -130,7 +130,16 @@ public class Mao {
 		int numberOfRoundsWon;
 		TrucoTeam winnerTeam = null;
 		boolean hasWinner = false;
-		if(rounds.size() > 1) {
+		if(rounds.size() == 3 && rounds.get(2).isTiedRound()) {
+			if(!rounds.get(0).isTiedRound()) {
+				maoWinner = rounds.get(0).getRoundWinner().getTeam();
+			}
+			else {
+				maoWinner = rounds.get(1).getRoundWinner().getTeam();
+			}
+			setMaoWinner(maoWinner);
+		}
+		else if(rounds.size() > 1) {
 			for(TrucoTeam team : maoScoreboard.keySet()) {
 				numberOfRoundsWon = maoScoreboard.get(team);
 				if(numberOfRoundsWon > aux) {

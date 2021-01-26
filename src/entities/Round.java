@@ -57,7 +57,7 @@ public class Round {
 
 	public void setRoundWinner(TrucoPlayer roundWinner) {
 		this.roundWinner = roundWinner;
-		if(mao != null) {
+		if(mao != null && !tiedRound) {
 			mao.increaseScore(roundWinner.getTeam());
 		}
 	}
