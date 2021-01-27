@@ -13,8 +13,6 @@ public class TrucoMatch {
 	private List<Mao> maos = new ArrayList<>();
 	private HashMap<TrucoPlayer, Integer> defaultSequence = new HashMap<>();
 	private HashMap<TrucoTeam, Integer> scoreboard = new HashMap<>();
-	// booleano para verificar se há o necessário para iniciar uma partida de truco
-	private boolean trucoMatchRequirements;
 
 	public TrucoMatch(List<TrucoTeam> teams) {
 		this.trucoDeck = new TrucoDeck();
@@ -53,14 +51,6 @@ public class TrucoMatch {
 
 	public HashMap<TrucoTeam, Integer> getScoreboard() {
 		return scoreboard;
-	}
-
-	public boolean isTrucoMatchRequirements() {
-		return trucoMatchRequirements;
-	}
-
-	public void setTrucoMatchRequirements(boolean trucoMatchRequirements) {
-		this.trucoMatchRequirements = trucoMatchRequirements;
 	}
 
 	public Mao getCurrentMao() {
@@ -138,10 +128,7 @@ public class TrucoMatch {
 				aux++;
 			}
 		}
-		if(aux == teams.size()) {
-			trucoMatchRequirements = true;
-		}
-		else {
+		if(aux != teams.size()) {
 			throw new TrucoException("Can't start Truco Match: all teams must have the same number of players.");
 		}
 	}

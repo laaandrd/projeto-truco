@@ -51,6 +51,10 @@ public class Round {
 		return playersCardsOnTable;
 	}
 
+	public TrucoPlayer getCurrentPlayer() {
+		return this.getRoundSequence().get(playersCardsOnTable.size());
+	}
+
 	public TrucoPlayer getRoundWinner() {
 		return roundWinner;
 	}
