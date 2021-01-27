@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import exceptions.TrucoException;
+
 public class TrucoMatch {
 
 	private TrucoDeck trucoDeck;
@@ -20,6 +22,7 @@ public class TrucoMatch {
 		for (TrucoTeam team : teams) {
 			scoreboard.put(team, 0);
 		}
+		verifyTrucoMatchRequirements();
 		organizeSequence();
 		setNewMao();
 	}
@@ -61,14 +64,28 @@ public class TrucoMatch {
 	}
 
 	public Mao getCurrentMao() {
-		return maos.get(maos.size() - 1);
+		if(maos.size() > 0) {
+			return maos.get(maos.size() - 1);
+		}
+		throw new TrucoException("There isn't any mão on this match!");
 	}
 
 	public Mao getLastMao() {
-		return maos.get(maos.size() - 2);
+		if(maos.size() > 1) {
+			return maos.get(maos.size() - 2);
+		}
+		if(maos.size() == 1) {
+			throw new TrucoException("There is just 01 mão on this match!");
+		}
+		throw new TrucoException("There isn't any mão on this match!");
 	}
 
 	public void setNewMao() {
+		for(TrucoTeam team : teams) {
+			for(TrucoPlayer player : team.getPlayers()) {
+				player.cleanCards();
+			}
+		}
 		trucoDeck.setDefaultDeck();
 		trucoDeck.shuffle();
 		maos.add(new Mao());
@@ -87,7 +104,7 @@ public class TrucoMatch {
 	public Round getLastRound() {
 
 		if (getCurrentMao().getRounds().size() == 1 && maos.size() > 1) {
-			return getLastMao().getRounds().get(2);
+			return getLastMao().getCurrentRound();
 		}
 		return getCurrentMao().getLastRound();
 	}
@@ -107,6 +124,25 @@ public class TrucoMatch {
 				j++;
 			}
 			i++;
+		}
+	}
+	
+	public void verifyTrucoMatchRequirements() {
+		int aux = 0;
+		if(teams.size() < 2) {
+			throw new TrucoException("Can't start Truco Match: insufficient number of teams.");
+		}
+		int numberOfPlayersPerTeam = teams.get(0).getPlayers().size();
+		for(TrucoTeam team : teams) {
+			if(team.getPlayers().size() == numberOfPlayersPerTeam) {
+				aux++;
+			}
+		}
+		if(aux == teams.size()) {
+			trucoMatchRequirements = true;
+		}
+		else {
+			throw new TrucoException("Can't start Truco Match: all teams must have the same number of players.");
 		}
 	}
 
