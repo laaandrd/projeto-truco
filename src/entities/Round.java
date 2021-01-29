@@ -101,9 +101,14 @@ public class Round {
 		}
 	}
 	
-	public void addPlayerCardOnTable(TrucoPlayer player, int cardIndex) {
+	public void addPlayerCardOnTable(TrucoPlayer player, int cardIndex, boolean isHiddenCard) {
 		if(player.getCards()[cardIndex] != null){
-			playersCardsOnTable.add(player.playCard(cardIndex));
+			if(isHiddenCard) {
+				playersCardsOnTable.add(player.playHiddenCard(cardIndex));
+			}
+			else {
+				playersCardsOnTable.add(player.playCard(cardIndex));
+			}
 		}
 	}
 	
@@ -170,9 +175,16 @@ public class Round {
 				tiedRound = true;
 			}
 		}
+		
+		if(index == -1) {
+			setRoundWinner(null);
+		}
+		else {
+			TrucoPlayer roundWinner = getOrdenedPlayers().get(index);
+			setRoundWinner(roundWinner);
+		}
 		clearManilhas(playersCardsOnTable);
-		TrucoPlayer roundWinner = getOrdenedPlayers().get(index);
-		setRoundWinner(roundWinner);
+		
 	}
 
 }

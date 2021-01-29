@@ -13,6 +13,7 @@ public class TrucoMatch {
 	private List<Mao> maos = new ArrayList<>();
 	private HashMap<TrucoPlayer, Integer> defaultSequence = new HashMap<>();
 	private HashMap<TrucoTeam, Integer> scoreboard = new HashMap<>();
+	private TrucoTeam winner;
 
 	public TrucoMatch(List<TrucoTeam> teams) {
 		this.trucoDeck = new TrucoDeck();
@@ -22,7 +23,6 @@ public class TrucoMatch {
 		}
 		verifyTrucoMatchRequirements();
 		organizeSequence();
-		setNewMao();
 	}
 
 	public TrucoDeck getTrucoDeck() {
@@ -51,6 +51,14 @@ public class TrucoMatch {
 
 	public HashMap<TrucoTeam, Integer> getScoreboard() {
 		return scoreboard;
+	}
+
+	public TrucoTeam getWinner() {
+		return winner;
+	}
+
+	public void setWinner(TrucoTeam winner) {
+		this.winner = winner;
 	}
 
 	public Mao getCurrentMao() {
@@ -84,7 +92,6 @@ public class TrucoMatch {
 			getCurrentMao().getMaoScoreboard().put(team, 0);
 		}
 		getCurrentMao().getPlayersCards();
-		getCurrentMao().setNewRound();
 	}
 
 	public Round getCurrenteRound() {
@@ -103,6 +110,14 @@ public class TrucoMatch {
 		Integer currentScore = scoreboard.get(team);
 		scoreboard.replace(team, currentScore + getCurrentMao().getMaoValue());
 	}
+	
+	public void findWinner() {
+		for(TrucoTeam team : scoreboard.keySet()) {
+			if(scoreboard.get(team) >= 12) {
+				winner = team;
+			}
+		}
+	}
 
 	// private method!
 	private void organizeSequence() {
@@ -117,7 +132,7 @@ public class TrucoMatch {
 		}
 	}
 	
-	public void verifyTrucoMatchRequirements() {
+	private void verifyTrucoMatchRequirements() {
 		int aux = 0;
 		if(teams.size() < 2) {
 			throw new TrucoException("Can't start Truco Match: insufficient number of teams.");

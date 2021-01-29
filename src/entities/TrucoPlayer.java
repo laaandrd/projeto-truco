@@ -63,6 +63,29 @@ public class TrucoPlayer {
 	public TrucoCard playCard(int cardIndex) {
 		TrucoCard card = cards [cardIndex];
 		removeCard(cardIndex);
+		
+		for(int i = 0; i < cards.length - 1; i++) {
+			if(cards [i] == null) {
+				cards [i] = cards [i + 1];
+				cards [i + 1] = null;
+			}
+		}
+		
+		return card;
+	}
+	
+	public TrucoCard playHiddenCard(int cardIndex) {
+		TrucoCard card = cards [cardIndex];
+		card.makeHiddenCard();
+		removeCard(cardIndex);
+		
+		for(int i = 0; i < cards.length - 1; i++) {
+			if(cards [i] == null) {
+				cards [i] = cards [i + 1];
+				cards [i + 1] = null;
+			}
+		}
+		
 		return card;
 	}
 

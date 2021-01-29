@@ -17,10 +17,15 @@ public class TrucoCard extends Card {
 
 	private boolean isVira;
 	private boolean isManilha;
+	private boolean isHiddenCard;
 	private TrucoDeckIncreasingSequence [] trucoCardsTags = TrucoDeckIncreasingSequence.trucoCardsTags;
 
 	@Override
 	public int getRelativeValue() {
+		if(isHiddenCard) {
+			return 0;
+		}
+		
 		if (isManilha) {
 			return 11 * 10 + this.getSuitValue();
 		}
@@ -36,6 +41,10 @@ public class TrucoCard extends Card {
 		return isManilha;
 	}
 
+	public boolean isHiddenCard() {
+		return isHiddenCard;
+	}
+
 	public void makeVira() {
 		this.isVira = true;
 	}
@@ -45,9 +54,14 @@ public class TrucoCard extends Card {
 		this.relativeValue = this.getRelativeValue();
 	}
 	
+	public void makeHiddenCard() {
+		this.isHiddenCard = true;
+		relativeValue = this.getDefaultTrucoValue();
+	}
+	
 	public void unmakeManilha() {
 		this.isManilha = false;
-		this.relativeValue = this.getRelativeValue();
+		relativeValue = this.getRelativeValue();
 	}
 
 	public int getSuitValue() {
@@ -81,6 +95,18 @@ public class TrucoCard extends Card {
 		return -1;
 	}
 	
+	@Override
+	public String toString() {
+		if(isHiddenCard) {
+			return "[? ??????]";
+		}
+		return "[" +
+				getCardTag().getTag() +
+				" " +
+				this.getSuit()+
+				"]";
+				
+	}
 	
 	
 }

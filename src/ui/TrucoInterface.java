@@ -2,8 +2,11 @@ package ui;
 
 import entities.Round;
 import entities.TrucoCard;
+import entities.TrucoMatch;
 
 public class TrucoInterface {
+	
+	private TrucoMatch trucoMatch;
 
 	public void printRoundInfo(Round round) {
 		System.out.println("--------------------------------------------------------");

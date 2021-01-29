@@ -36,18 +36,16 @@ public class Program {
 		teams.add(team2);
 		// teams.add(team3);
 
-		for (TrucoTeam team : teams) {
-			for (TrucoPlayer player : team.getPlayers()) {
-				td.getPlayerCards(player);
-			}
-		}
-		TrucoInterface ti = new TrucoInterface();
 		TrucoMatch tm = new TrucoMatch(teams);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0);
+		TrucoInterface ti = new TrucoInterface();
+		tm.setNewMao();
+		tm.getCurrentMao().setNewRound();
+		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
+		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
+		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
+		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, true);
 		ti.printRoundInfo(tm.getCurrenteRound());
+		
 		
 		System.out.println("DONE!");
 	}
