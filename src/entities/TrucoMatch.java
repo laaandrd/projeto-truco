@@ -18,6 +18,7 @@ public class TrucoMatch {
 	private TrucoTeam winner;
 	
 	private TrucoInterface ti = new TrucoInterface(this);
+	private Scanner sc = new Scanner(System.in);
 
 	public TrucoMatch(List<TrucoTeam> teams) {
 		this.trucoDeck = new TrucoDeck();
@@ -127,15 +128,53 @@ public class TrucoMatch {
 		}
 	}
 	
+	public TrucoTeam getCurrentOpponentTeam() {
+		TrucoTeam opponentTeam = null;
+		
+		for(TrucoTeam team : teams) {
+			if(team != getCurrentPlayer().getTeam()) {
+				opponentTeam = team;
+			}
+		}
+		
+		return opponentTeam;
+	}
+	
 	private boolean canIncreaseMaoValue() {
 		return getCurrentMao().getLastToIncreaseValue() == null ||
 			getCurrentMao().getLastToIncreaseValue().getTeam() != getCurrentPlayer().getTeam();
 	}
 	
+	private void increaseMaoValue() {
+		
+		System.out.println();
+		
+		TrucoTeam opponentTeam = null;
+		char option;
+		
+		for(TrucoTeam team : teams) {
+			if(team != getCurrentPlayer().getTeam()) {
+				opponentTeam = team;
+			}
+		}
+		
+		if(opponentTeam != null) {
+			System.out.printf(opponentTeam + ", do you agree increasing current mão's value? (y/n)\n->");
+			option = sc.next().charAt(0);
+			if(option == 'y') {
+				getCurrentMao().increaseMaoValue(getCurrentPlayer());
+			}
+			else {
+				getCurrentMao().setMaoWinner(getCurrentPlayer().getTeam());
+			}
+		}
+		
+	}
+	
 	public void chooseOption() {
 		
-		//passar o scanner como parametro para poder fecha-lo ao fim do programa??
-		Scanner sc = new Scanner(System.in);
+		ti.printPlayerOptions(this);
+		
 		char option;
 		char confirmation;
 		System.out.printf("Choose an option: play a card or increase current mão's value if possible."
@@ -166,7 +205,7 @@ public class TrucoMatch {
 				}
 			}
 			else if(canIncreaseMaoValue()) {
-				getCurrentMao().increaseMaoValue(getCurrentPlayer());
+				increaseMaoValue();
 			}
 			else {
 				System.out.println("Invalid option!");
@@ -186,7 +225,7 @@ public class TrucoMatch {
 				}
 			}
 			else if(canIncreaseMaoValue()) {
-				getCurrentMao().increaseMaoValue(getCurrentPlayer());
+				increaseMaoValue();
 			}
 			else {
 				System.out.println("Invalid option!");
@@ -196,7 +235,7 @@ public class TrucoMatch {
 			
 		case 'd':
 			if(canIncreaseMaoValue()) {
-				getCurrentMao().increaseMaoValue(getCurrentPlayer());
+				increaseMaoValue();
 			}
 			else {
 				System.out.println("Invalid option!");
@@ -209,6 +248,10 @@ public class TrucoMatch {
 			chooseOption();
 		}
 		
+	}
+
+	public void closeScanner() {
+		sc.close();
 	}
 
 	// private method!
@@ -226,8 +269,8 @@ public class TrucoMatch {
 	
 	private void verifyTrucoMatchRequirements() {
 		int aux = 0;
-		if(teams.size() < 2) {
-			throw new TrucoException("Can't start Truco Match: insufficient number of teams.");
+		if(teams.size() != 2) {
+			throw new TrucoException("Can't start Truco Match: truco match must have 2 teams.");
 		}
 		int numberOfPlayersPerTeam = teams.get(0).getPlayers().size();
 		for(TrucoTeam team : teams) {
@@ -248,25 +291,36 @@ public class TrucoMatch {
 			setNewMao();
 			while(getCurrentMao().getRounds().size() < 3 && getCurrentMao().getMaoWinner() == null) {
 				getCurrentMao().setNewRound();
-				while(getCurrenteRound().getPlayersCardsOnTable().size() < 4) {
+				while(getCurrenteRound().getPlayersCardsOnTable().size() < 4
+						&& getCurrentMao().getMaoWinner() == null) {
 					ti.printScoreboard();
 					ti.printMaoRoundHeader();
 					ti.printTable();
-					System.out.println("Current player: " + getCurrentPlayer()+", "+ getCurrentPlayer().getTeam() +"\n");
-					ti.printPlayerOptions(this);
+					System.out.println("Current player: " + getCurrentPlayer()
+						+ ", "+ getCurrentPlayer().getTeam() +"\n");
 					chooseOption();
 					ti.pressEnterKeyToContinue();
 					ti.clearScreen();
 					
 				}
-				getCurrenteRound().findRoundWinner();
+				if(getCurrentMao().getMaoWinner() == null) {
+					getCurrenteRound().findRoundWinner();
+				}
+		
 				ti.printScoreboard();
 				ti.printMaoRoundHeader();
 				ti.printTable();
-				System.out.println("Round winner: " + getCurrenteRound().getRoundWinner() +"\n");
+				if(getCurrentMao().getMaoWinner() == null) {
+					System.out.println("Round winner: " + getCurrenteRound().getRoundWinner() +"\n");
+				}
+				else {
+					System.out.println(getCurrentOpponentTeam() + " gave up increasing mão's value!\n");
+				}
 				ti.pressEnterKeyToContinue();
 				ti.clearScreen();
-				getCurrentMao().findMaoWinner();
+				if(getCurrentMao().getMaoWinner() == null) {
+					getCurrentMao().findMaoWinner();
+				}
 	
 			}
 			ti.printScoreboard();
@@ -278,6 +332,7 @@ public class TrucoMatch {
 			ti.clearScreen();
 			findWinner();
 		}
+		closeScanner();
 		ti.clearScreen();
 		ti.printScoreboard();
 		System.out.println("++++++++++++++++++++++++++++++++++");

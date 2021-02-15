@@ -45,10 +45,11 @@ public class TrucoInterface {
 			}
 			else {
 				if(optionsBoard.get(i) != null) {
-					System.out.println("\n[ASK FOR INCREASING MÃO VALUE] <- " + optionsBoard.get(i) +"\n");
+					System.out.println("\n[ASK FOR INCREASING MÃO VALUE] <- " + optionsBoard.get(i));
 				}
 			}
 		}
+		System.out.println();
 
 	}
 	
@@ -68,6 +69,7 @@ public class TrucoInterface {
 	}
 	
 	public void printTable() {
+		System.out.println("----------------------------------");
 		System.out.println("Vira: " + trucoMatch.getCurrenteRound().getVira() + "\n");
 
 		System.out.println("Cards on the table: ");
@@ -76,7 +78,7 @@ public class TrucoInterface {
 			System.out.println(trucoMatch.getCurrenteRound().getPlayersCardsOnTable().get(i)
 					+ " <- " + trucoMatch.getCurrenteRound().getRoundSequence().get(i));
 		}
-		
+		System.out.println("----------------------------------");
 		System.out.println();
 	}
 
