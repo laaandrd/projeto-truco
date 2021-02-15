@@ -88,6 +88,16 @@ public class TrucoPlayer {
 		
 		return card;
 	}
+	
+	public int numberOfCards() {
+		int i = 0;
+		for(TrucoCard card : cards) {
+			if(card != null) {
+				i++;
+			}
+		}
+		return i;
+	}
 
 	public String toString() {
 		return this.name;

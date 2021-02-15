@@ -7,7 +7,6 @@ import entities.TrucoDeck;
 import entities.TrucoMatch;
 import entities.TrucoPlayer;
 import entities.TrucoTeam;
-import ui.TrucoInterface;
 
 public class Program {
 
@@ -37,17 +36,8 @@ public class Program {
 		// teams.add(team3);
 
 		TrucoMatch tm = new TrucoMatch(teams);
-		TrucoInterface ti = new TrucoInterface();
-		tm.setNewMao();
-		tm.getCurrentMao().setNewRound();
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, false);
-		tm.getCurrenteRound().addPlayerCardOnTable(tm.getCurrenteRound().getCurrentPlayer(), 0, true);
-		ti.printRoundInfo(tm.getCurrenteRound());
-		
-		
-		System.out.println("DONE!");
+		tm.startTrucoMatch();
+		System.out.println("\nDONE!");
 	}
 
 }
