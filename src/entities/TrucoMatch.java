@@ -65,12 +65,16 @@ public class TrucoMatch {
 	public void setWinner(TrucoTeam winner) {
 		this.winner = winner;
 	}
+	
+	public Scanner getScanner() {
+		return sc;
+	}
 
 	public Mao getCurrentMao() {
 		if(maos.size() > 0) {
 			return maos.get(maos.size() - 1);
 		}
-		throw new TrucoException("There isn't any m„o on this match!");
+		throw new TrucoException("There isn't any m√£o on this match!");
 	}
 
 	public Mao getLastMao() {
@@ -78,9 +82,9 @@ public class TrucoMatch {
 			return maos.get(maos.size() - 2);
 		}
 		if(maos.size() == 1) {
-			throw new TrucoException("There is just 01 m„o on this match!");
+			throw new TrucoException("There is just 01 m√£o on this match!");
 		}
-		throw new TrucoException("There isn't any m„o on this match!");
+		throw new TrucoException("There isn't any m√£o on this match!");
 	}
 
 	public void setNewMao() {
@@ -145,6 +149,7 @@ public class TrucoMatch {
 			getCurrentMao().getLastToIncreaseValue().getTeam() != getCurrentPlayer().getTeam();
 	}
 	
+	//aplicar a l√≥gica de senha e limpar a tela quando essa op√ß√£o for chamada!!
 	private void increaseMaoValue() {
 		
 		System.out.println();
@@ -159,7 +164,7 @@ public class TrucoMatch {
 		}
 		
 		if(opponentTeam != null) {
-			System.out.printf(opponentTeam + ", do you agree increasing current m„o's value? (y/n)\n->");
+			System.out.printf(opponentTeam + ", do you agree increasing current m√£o's value? (y/n)\n->");
 			option = sc.next().charAt(0);
 			if(option == 'y') {
 				getCurrentMao().increaseMaoValue(getCurrentPlayer());
@@ -177,7 +182,7 @@ public class TrucoMatch {
 		
 		char option;
 		char confirmation;
-		System.out.printf("Choose an option: play a card or increase current m„o's value if possible."
+		System.out.printf("Choose an option: play a card or increase current m√£o's value if possible."
 				+ "\n->");
 		option = sc.next().charAt(0);
 		switch(option) {
@@ -249,6 +254,18 @@ public class TrucoMatch {
 		}
 		
 	}
+	
+	public boolean confirmPassword() {
+		System.out.println("Enter your password: ");
+		String password = sc.next();
+		if(password.equals(getCurrentPlayer().getPassword())){
+			return true;
+		}
+		else {
+			System.out.println("Wrong password! Try again!");
+			return false;
+		}
+	}
 
 	public void closeScanner() {
 		sc.close();
@@ -296,8 +313,20 @@ public class TrucoMatch {
 					ti.printScoreboard();
 					ti.printMaoRoundHeader();
 					ti.printTable();
-					System.out.println("Current player: " + getCurrentPlayer()
-						+ ", "+ getCurrentPlayer().getTeam() +"\n");
+					ti.printCurrentPlayer();
+					while(!confirmPassword()) {
+						ti.pressEnterKeyToContinue();
+						ti.clearScreen();
+						ti.printScoreboard();
+						ti.printMaoRoundHeader();
+						ti.printTable();
+						ti.printCurrentPlayer();
+					}
+					ti.clearScreen();
+					ti.printScoreboard();
+					ti.printMaoRoundHeader();
+					ti.printTable();
+					ti.printCurrentPlayer();
 					chooseOption();
 					ti.pressEnterKeyToContinue();
 					ti.clearScreen();
@@ -314,7 +343,7 @@ public class TrucoMatch {
 					System.out.println("Round winner: " + getCurrenteRound().getRoundWinner() +"\n");
 				}
 				else {
-					System.out.println(getCurrentOpponentTeam() + " gave up increasing m„o's value!\n");
+					System.out.println(getCurrentOpponentTeam() + " gave up increasing m√£o's value!\n");
 				}
 				ti.pressEnterKeyToContinue();
 				ti.clearScreen();
@@ -326,7 +355,7 @@ public class TrucoMatch {
 			ti.printScoreboard();
 			ti.printMaoRoundHeader();
 			ti.printTable();
-			System.out.println("M„o #" + getMaos().size() + " winner: "+ getCurrentMao().getMaoWinner());
+			System.out.println("M√£o #" + getMaos().size() + " winner: "+ getCurrentMao().getMaoWinner());
 			System.out.println();
 			ti.pressEnterKeyToContinue();
 			ti.clearScreen();

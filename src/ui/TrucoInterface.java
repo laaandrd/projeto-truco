@@ -21,6 +21,11 @@ public class TrucoInterface {
 		}
 		System.out.println();
 	}
+	
+	public void printCurrentPlayer() {
+		System.out.println("Current player: " + trucoMatch.getCurrentPlayer()
+		+ ", "+ trucoMatch.getCurrentPlayer().getTeam() +"\n");
+	}
 
 	//bug(?)
 	public void printPlayerOptions(TrucoMatch trucoMatch) {
@@ -45,7 +50,7 @@ public class TrucoInterface {
 			}
 			else {
 				if(optionsBoard.get(i) != null) {
-					System.out.println("\n[ASK FOR INCREASING MÃO VALUE] <- " + optionsBoard.get(i));
+					System.out.println("\n[ASK FOR INCREASING MÃƒO VALUE] <- " + optionsBoard.get(i));
 				}
 			}
 		}
@@ -56,7 +61,7 @@ public class TrucoInterface {
 	public void printMaoRoundHeader() {
 		int i = 1;
 		System.out.println("**********************************");
-		System.out.println("Mão #" + trucoMatch.getMaos().size() +
+		System.out.println("MÃ£o #" + trucoMatch.getMaos().size() +
 				" (+" + trucoMatch.getCurrentMao().getMaoValue()+ " to the winner team)\n");
 		for(Round round : trucoMatch.getCurrentMao().getRounds()) {
 			if(round.getRoundWinner() != null) {

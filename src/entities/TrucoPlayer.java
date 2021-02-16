@@ -5,6 +5,7 @@ public class TrucoPlayer {
 	private String name;
 	private TrucoTeam team;
 	private TrucoCard[] cards = new TrucoCard[3];
+	private String password;
 
 	public TrucoPlayer(String name) {
 		this.name = name;
@@ -35,6 +36,14 @@ public class TrucoPlayer {
 		return cards;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void addCard(TrucoCard card) {
 		for (int i = 0; i < cards.length; i++) {
 			if (cards[i] == null) {
@@ -53,13 +62,7 @@ public class TrucoPlayer {
 		cards [1] = null;
 		cards [2] = null;
 	} 
-
-	// !
-	public void increaseMaoValue(Mao mao) {
-		mao.increaseMaoValue(this);
-	}
 	
-	//!
 	public TrucoCard playCard(int cardIndex) {
 		TrucoCard card = cards [cardIndex];
 		removeCard(cardIndex);
@@ -87,6 +90,10 @@ public class TrucoPlayer {
 		}
 		
 		return card;
+	}
+	
+	public void increaseMaoValue(Mao mao) {
+		mao.increaseMaoValue(this);
 	}
 	
 	public int numberOfCards() {
